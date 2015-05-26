@@ -1,0 +1,128 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+<header class="hero-unit" id="banner">
+  <div class="container">
+    <h2>MD5 Matching Program</h2>
+  </div>
+</header>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+    <br>
+      <form name="myForm" ng-submit="startMatch()" novalidate ng-if="!istreated" class="form-inline">
+          <div class="panel panel-primary">
+
+            <div class="panel-heading"><h4>Liste MD5 n°1</h4></div>
+
+            <div class="checkbox panel-body" style="padding-bot:0px;">
+              <label>
+                un Header est-il présent dans le fichier?
+                <input type="checkbox" ng-model="csvClient.header">
+              </label>
+            </div>
+
+            <!--
+            <div class="panel-body input-group" style="padding-top:0px;">
+                <div class="input-group-addon">Séparateur</div>
+                <input type="text" ng-change="changeSeparator" ng-model="csvClient.separator" class="ng-pristine ng-valid form-control">
+            </div>
+            -->
+
+            <div class="panel-footer">
+              <ng-csv-import 
+                class="import"
+                content="csvClient.content"
+                result="csvClient.result">
+              </ng-csv-import>
+            </div>
+          </div>
+          
+          <div class="panel panel-primary">
+            <div class="panel-heading"><h4>Liste MD5 n°2</h4></div>
+
+            <div class="checkbox panel-body" style="padding-bot:0px;">
+              <label>
+                un Header est-il présent dans le fichier?
+                <input type="checkbox" ng-model="csvIntern.header">
+              </label>
+            </div>
+      
+            <!--
+            <div class="panel-body input-group" style="padding-top:0px;">
+                <div class="input-group-addon">Séparateur</div>
+                <input type="text" ng-change="changeSeparator" ng-model="csvIntern.separator" class="ng-pristine ng-valid form-control">
+            </div>
+            -->
+
+            <div class="panel-footer">
+              <ng-csv-import 
+                class="import"
+                content="csvIntern.content"
+                result="csvIntern.result">
+              </ng-csv-import>
+            </div>
+          </div>
+          
+          <div class="panel panel-primary">
+
+            <div class="panel-heading"><h4>Options</h4></div>
+
+            <div class="panel-body input-group">
+                <div class="input-group-addon">Nom du fichier à exporter</div>
+                <input type="text" ng-change="nameExport" ng-model="csvExport.title" class="ng-pristine ng-valid">
+            </div>
+
+            <div class="panel-body input-group" style="padding-top:3px;">
+                <div class="input-group-addon">Nom de l'entête</div>
+                <input type="text" ng-change="nameHead" ng-model="csvExport.headName" class="ng-pristine ng-valid">
+            </div>
+
+          </div>
+          
+          <input type="submit" value="Lancer le traitement" class="btn btn-primary fullWidth"/>
+      </form>
+
+      <div ng-if="istreated" class="block left">
+
+          <div class="content clear">
+            <h2>Récapitulatif</h2>
+            <pre>{{ recapPreview }}</pre>
+            <button ng-click="exportTxt(recapPreview, csvExport.title)" class="btn btn-success">Exporter le récapitulatif</button>
+          </div>
+  
+          <br>
+  
+          <div class="content clear">
+            <h2>CSV</h2>
+            <pre>{{ csvPreview }}</pre>
+            <button ng-click="exportCSV(csvPreview, csvExport.title)" class="btn btn-success">Exporter en CSV</button>
+          </div>
+  
+          <br>
+
+          <div class="content clear">
+            <h2>JSON</h2>
+            <pre>{{ jsonPreview }}</pre>
+            <button ng-click="exportJSON(jsonPreview, csvExport.title)" class="btn btn-success">Exporter en JSON</button>
+          </div>
+
+          <br>
+          <hr style="border-top:1px solid ">
+
+          <button ng-click="reloadLocation()" class="btn btn-primary fullWidth">Retour</button>
+      </div>
+
+    </div>
+    <div class="col-md-3"></div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+      <p>CCM Benchmark |
+        <a href="sfragniere@commentcamarche.net">@contact</a>
+      </p>
+  </div>
+</footer>
